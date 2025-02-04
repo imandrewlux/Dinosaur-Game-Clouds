@@ -45,7 +45,7 @@
         this.obstacles = [];
 
         this.activated = false; // Whether the easter egg has been activated.
-        this.playing = false; // Whether the game is currently in play state.
+        this.playing = true; // Whether the game is currently in play state.
         this.crashed = false;
         this.paused = false;
         this.inverted = false;
@@ -72,7 +72,6 @@
         }
     }
     window['Runner'] = Runner;
-
 
     /**
      * Default game width.
@@ -208,7 +207,6 @@
         DUCK: { '40': 1 },  // Down
         RESTART: { '13': 1 }  // Enter
     };
-
 
     /**
      * Runner event names.
@@ -519,6 +517,7 @@
 
             window.addEventListener(Runner.events.FOCUS,
                 this.onVisibilityChange.bind(this));
+            //console.log("here!")
         },
 
         clearCanvas: function () {
@@ -539,26 +538,26 @@
             if (this.playing) {
                 this.clearCanvas();
 
-                if (this.tRex.jumping) {
-                    this.tRex.updateJump(deltaTime);
-                }
+                // if (this.tRex.jumping) {
+                //     this.tRex.updateJump(deltaTime);
+                // }
 
                 this.runningTime += deltaTime;
                 var hasObstacles = this.runningTime > this.config.CLEAR_TIME;
 
                 // First jump triggers the intro.
-                if (this.tRex.jumpCount == 1 && !this.playingIntro) {
+                
                     this.playIntro();
-                }
+                
 
                 // The horizon doesn't move until the intro is over.
-                if (this.playingIntro) {
-                    this.horizon.update(0, this.currentSpeed, hasObstacles);
-                } else {
+                // if (this.playingIntro) {
+                //     this.horizon.update(0, this.currentSpeed, hasObstacles);
+                // } else {
                     deltaTime = !this.activated ? 0 : deltaTime;
                     this.horizon.update(deltaTime, this.currentSpeed, hasObstacles,
                         this.inverted);
-                }
+                //}
 
                 // Check for collisions.
                 // var collision = hasObstacles &&
@@ -574,12 +573,12 @@
                 //     //this.gameOver();
                 // }
 
-                var playAchievementSound = this.distanceMeter.update(deltaTime,
-                    Math.ceil(this.distanceRan));
+                // var playAchievementSound = this.distanceMeter.update(deltaTime,
+                //     Math.ceil(this.distanceRan));
 
-                if (playAchievementSound) {
-                    this.playSound(this.soundFx.SCORE);
-                }
+                // if (playAchievementSound) {
+                //     this.playSound(this.soundFx.SCORE);
+                // }
 
                 // Night mode.
                 if (this.invertTimer > this.config.INVERT_FADE_DURATION) {

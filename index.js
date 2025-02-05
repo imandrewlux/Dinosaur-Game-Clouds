@@ -89,13 +89,13 @@
     var IS_HIDPI = window.devicePixelRatio > 1;
 
     /** @const */
-    var IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
+    //var IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
 
     /** @const */
-    var IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
+    //var IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
 
     /** @const */
-    var IS_TOUCH_ENABLED = 'ontouchstart' in window;
+    // var IS_TOUCH_ENABLED = 'ontouchstart' in window;
 
     /**
      * Default game configuration.
@@ -310,24 +310,24 @@
          * Load and decode base 64 encoded sounds.
          */
         loadSounds: function () {
-            if (!IS_IOS) {
-                this.audioContext = new AudioContext();
+            // if (!IS_IOS) {
+            //     this.audioContext = new AudioContext();
 
-                var resourceTemplate =
-                    document.getElementById(this.config.RESOURCE_TEMPLATE_ID).content;
+            //     var resourceTemplate =
+            //         document.getElementById(this.config.RESOURCE_TEMPLATE_ID).content;
 
-                for (var sound in Runner.sounds) {
-                    var soundSrc =
-                        resourceTemplate.getElementById(Runner.sounds[sound]).src;
-                    soundSrc = soundSrc.substr(soundSrc.indexOf(',') + 1);
-                    var buffer = decodeBase64ToArrayBuffer(soundSrc);
+            //     for (var sound in Runner.sounds) {
+            //         var soundSrc =
+            //             resourceTemplate.getElementById(Runner.sounds[sound]).src;
+            //         soundSrc = soundSrc.substr(soundSrc.indexOf(',') + 1);
+            //         var buffer = decodeBase64ToArrayBuffer(soundSrc);
 
-                    // Async, so no guarantee of order in array.
-                    this.audioContext.decodeAudioData(buffer, function (index, audioData) {
-                        this.soundFx[index] = audioData;
-                    }.bind(this, sound));
-                }
-            }
+            //         // Async, so no guarantee of order in array.
+            //         this.audioContext.decodeAudioData(buffer, function (index, audioData) {
+            //             this.soundFx[index] = audioData;
+            //         }.bind(this, sound));
+            //     }
+            // }
         },
 
         /**
@@ -383,9 +383,9 @@
 
             this.outerContainerEl.appendChild(this.containerEl);
 
-            if (IS_MOBILE) {
-                this.createTouchController();
-            }
+            // if (IS_MOBILE) {
+            //     this.createTouchController();
+            // }
 
             this.startListening();
             this.update();
@@ -639,16 +639,16 @@
             document.addEventListener(Runner.events.KEYDOWN, this);
             document.addEventListener(Runner.events.KEYUP, this);
 
-            if (IS_MOBILE) {
-                // Mobile only touch devices.
-                this.touchController.addEventListener(Runner.events.TOUCHSTART, this);
-                this.touchController.addEventListener(Runner.events.TOUCHEND, this);
-                this.containerEl.addEventListener(Runner.events.TOUCHSTART, this);
-            } else {
+            // if (IS_MOBILE) {
+            //     // Mobile only touch devices.
+            //     // this.touchController.addEventListener(Runner.events.TOUCHSTART, this);
+            //     // this.touchController.addEventListener(Runner.events.TOUCHEND, this);
+            //     // this.containerEl.addEventListener(Runner.events.TOUCHSTART, this);
+            // } else {
                 // Mouse.
                 document.addEventListener(Runner.events.MOUSEDOWN, this);
                 document.addEventListener(Runner.events.MOUSEUP, this);
-            }
+            //}
         },
 
         /**
@@ -658,14 +658,14 @@
             document.removeEventListener(Runner.events.KEYDOWN, this);
             document.removeEventListener(Runner.events.KEYUP, this);
 
-            if (IS_MOBILE) {
-                this.touchController.removeEventListener(Runner.events.TOUCHSTART, this);
-                this.touchController.removeEventListener(Runner.events.TOUCHEND, this);
-                this.containerEl.removeEventListener(Runner.events.TOUCHSTART, this);
-            } else {
+            // if (IS_MOBILE) {
+            //     // this.touchController.removeEventListener(Runner.events.TOUCHSTART, this);
+            //     // this.touchController.removeEventListener(Runner.events.TOUCHEND, this);
+            //     // this.containerEl.removeEventListener(Runner.events.TOUCHSTART, this);
+            // } else {
                 document.removeEventListener(Runner.events.MOUSEDOWN, this);
                 document.removeEventListener(Runner.events.MOUSEUP, this);
-            }
+            //}
         },
 
         /**
@@ -674,7 +674,7 @@
          */
         onKeyDown: function (e) {
             // Prevent native page scrolling whilst tapping on mobile.
-            if (IS_MOBILE && this.playing) {
+            if ( this.playing) {
                 e.preventDefault();
             }
 
@@ -977,7 +977,7 @@
      * @param {number} duration Duration of the vibration in milliseconds.
      */
     function vibrate(duration) {
-        if (IS_MOBILE && window.navigator.vibrate) {
+        if ( window.navigator.vibrate) {
             window.navigator.vibrate(duration);
         }
     }
@@ -1025,7 +1025,7 @@
      * @return {number}
      */
     function getTimeStamp() {
-        return IS_IOS ? new Date().getTime() : performance.now();
+        return performance.now();
     }
 
 
@@ -1330,7 +1330,7 @@
 
                 // Check if obstacle can be positioned at various heights.
                 if (Array.isArray(this.typeConfig.yPos)) {
-                    var yPosConfig = IS_MOBILE ? this.typeConfig.yPosMobile :
+                    var yPosConfig = 
                         this.typeConfig.yPos;
                     this.yPos = yPosConfig[getRandomNum(0, yPosConfig.length - 1)];
                 } else {

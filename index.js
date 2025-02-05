@@ -111,8 +111,8 @@
         GAP_COEFFICIENT: 0.6,
         GRAVITY: 0.6,
         INITIAL_JUMP_VELOCITY: 12,
-        INVERT_FADE_DURATION: 12000,
-        INVERT_DISTANCE: 700,
+        INVERT_FADE_DURATION: 24000,
+        INVERT_DISTANCE: 2800,
         MAX_BLINK_COUNT: 3,
         MAX_CLOUDS: 0,
         MAX_OBSTACLE_LENGTH: 3,
@@ -879,7 +879,7 @@
         onVisibilityChange: function (e) {
             if (document.hidden || document.webkitHidden || e.type == 'blur' ||
                 document.visibilityState != 'visible') {
-                this.stop();
+                //this.stop();
             } else if (!this.crashed) {
                 this.tRex.reset();
                 this.play();

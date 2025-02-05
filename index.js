@@ -440,7 +440,7 @@
                 this.distanceMeter.calcXPos(this.dimensions.WIDTH);
                 this.clearCanvas();
                 this.horizon.update(0, 0, true);
-                //this.tRex.update(0);
+                this.tRex.update(0);
 
                 // Outer container and distance meter.
                 if (this.playing || this.crashed || this.paused) {
@@ -540,7 +540,7 @@
                 this.clearCanvas();
 
                 // if (this.tRex.jumping) {
-                //     this.tRex.updateJump(deltaTime);
+                     this.tRex.updateJump(deltaTime);
                 // }
 
                 this.runningTime += deltaTime;
@@ -590,7 +590,7 @@
                     this.invertTimer += deltaTime;
                 } else {
                     var actualDistance =
-                        this.distanceMeter.getActualDistance(Math.ceil(this.distanceRan));
+                        this.distanceMeter.getActualDistance(Math.ceil(this.time));
 
                     if (actualDistance > 0) {
                         this.invertTrigger = !(actualDistance %
@@ -602,11 +602,12 @@
                         }
                     }
                 }
+                console.log( );
             }
 
             if (this.playing || (!this.activated &&
                 this.tRex.blinkCount < Runner.config.MAX_BLINK_COUNT)) {
-                //this.tRex.update(deltaTime);
+                this.tRex.update(deltaTime);
                 this.scheduleNextUpdate();
             }
         },
@@ -2265,7 +2266,7 @@
         FADE_SPEED: 0.035,
         HEIGHT: 40,
         MOON_SPEED: 0.25,
-        NUM_STARS: 2,
+        NUM_STARS: 4,
         STAR_SIZE: 9,
         STAR_SPEED: 0.3,
         STAR_MAX_Y: 70,

@@ -72,7 +72,7 @@
         }
     }
     window['Runner'] = Runner;
-
+    let thing = 1;
     /**
      * Default game width.
      * @const
@@ -582,6 +582,7 @@
                 // }
 
                 // Night mode.
+                    
                 if (this.invertTimer > this.config.INVERT_FADE_DURATION) {
                     this.invertTimer = 0;
                     this.invertTrigger = false;
@@ -599,10 +600,11 @@
                         if (this.invertTrigger && this.invertTimer === 0) {
                             this.invertTimer += deltaTime;
                             this.invert();
+                            
                         }
                     }
                 }
-                console.log( );
+                console.log(thing );
             }
 
             if (this.playing || (!this.activated &&
@@ -903,16 +905,20 @@
          * Inverts the current page / canvas colors.
          * @param {boolean} Whether to reset colors.
          */
+
         invert: function (reset) {
             if (reset) {
                 document.body.classList.toggle(Runner.classes.INVERTED, false);
                 this.invertTimer = 0;
                 this.inverted = false;
+                thing = 1;
             } else {
                 this.inverted = document.body.classList.toggle(Runner.classes.INVERTED,
                     this.invertTrigger);
+                if(thing == 1){thing = 2}else{thing = 1}
             }
         }
+
     };
 
 
